@@ -466,7 +466,7 @@ public class RegisterForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void LoadDriver() throws SQLException{
-    String db="jdbc:ucanaccess://login1.accdb";
+    String db="jdbc:ucanaccess://Mobile Phone.accdb";
          
              conn=DriverManager.getConnection(db," "," ");
              System.out.println("Connected Database");

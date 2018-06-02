@@ -330,7 +330,7 @@ public class LoginPage extends javax.swing.JFrame {
     try{
 			
 			//Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			conn=DriverManager.getConnection("jdbc:ucanaccess://login1.accdb",username,password);
+			conn=DriverManager.getConnection("jdbc:ucanaccess://Resources/DB/Mobile Phone.accdb",username,password);
 			
 		}catch(Exception e){
 			System.out.println("createDB error!");			

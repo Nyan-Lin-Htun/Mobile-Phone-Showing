@@ -1,4 +1,4 @@
-
+ 
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,24 +37,36 @@ public class Custom_Panel extends javax.swing.JPanel {
     public void setModel(String _Model){
         this.Model=_Model;
     }
+    public String getModel(){
+       return this.Model;
+    }
     public void displayView(){
-         lblmodel.setText(Model);
-         lblprice.setText(Price+"");
+         lblmodel.setText(getModel());
+         lblprice.setText(getPrice()+"");
+         lblimage.setIcon(getImage());
     }
     public void setPrice(int _Price){
         this.Price=_Price;
+    }
+    public int getPrice(){
+       return this.Price;
     }
        public void setImage(ImageIcon _Image){
         this.Image=_Image;
     }
     public ImageIcon getImage(){
-        return this.Image;
+        return getResizeImage(this.Image);
     }
-    public ImageIcon getResizeImage(BufferedImage image){                
-        ImageIcon MyImage=new ImageIcon(image);
-        java.awt.Image img=MyImage.getImage();        
-        java.awt.Image newImg=img.getScaledInstance(lblimage.getWidth(),lblimage.getHeight(),java.awt.Image.SCALE_SMOOTH);
+   public ImageIcon getResizeImage(ImageIcon image){
+       final int WIDTH = 111;
+       final int HEIGHT = 122;
+       
+       java.awt.Image img = image.getImage();
+         
+        java.awt.Image newImg=img.getScaledInstance(WIDTH,HEIGHT,java.awt.Image.SCALE_SMOOTH);
         ImageIcon new_image=new ImageIcon(newImg);
+        System.out.println(new_image.getIconWidth());
+        
         return new_image;
     }
     
@@ -82,7 +94,7 @@ public class Custom_Panel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblimage, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+            .addComponent(lblimage, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,25 +121,19 @@ public class Custom_Panel extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(lblmodel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblprice, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                        .addGap(62, 62, 62)
+                        .addComponent(lblmodel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblprice, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(118, 118, 118))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(392, 392, 392)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblmodel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,6 +142,10 @@ public class Custom_Panel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(5, 5, 5))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

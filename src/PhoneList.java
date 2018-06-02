@@ -1,5 +1,8 @@
 
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,10 +39,17 @@ public class PhoneList extends javax.swing.JFrame {
      */
         Custom_Panel panel;
         final int COlUMN = 1; //row is dynamic
-    public PhoneList() throws SQLException {
+         final String Storage_Path="Resources/images/";
+    public PhoneList() throws SQLException, IOException {
         initComponents();
-        Display();
+        
 
+    }
+    public PhoneList(String arg) throws SQLException, IOException{
+        initComponents();
+        
+        System.out.println(arg);
+        Display(arg);
     }
 
     /**
@@ -139,7 +152,11 @@ public class PhoneList extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new PhoneList().setVisible(true);
+                    try {
+                        new PhoneList().setVisible(true);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PhoneList.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(PhoneList.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -147,18 +164,19 @@ public class PhoneList extends javax.swing.JFrame {
         });
     }
     public static void LoadDriver() throws SQLException{
-    String db="jdbc:ucanaccess://logo.accdb";
+    String db="jdbc:ucanaccess://Resources/DB/Mobile Phone.accdb";
          
              conn=DriverManager.getConnection(db," "," ");
              System.out.println("Connected Database");
     }
-    void Display() throws SQLException{
+    void Display(String Brand) throws SQLException, IOException{
         LoadDriver();
         
          try {
              stmt = conn.createStatement ();
-             sql="select count(*) as rowcount from Phones";
+             sql="select count(*) as rowcount from Phones where Brand='"+Brand+"'";
              rs=stmt.executeQuery(sql);
+             System.out.println(Brand);
              rs.next();
              int Total_Rows=rs.getInt("rowcount");//total row
              DataFlowPanel.setLayout(new GridLayout(Total_Rows,COlUMN));
@@ -171,15 +189,21 @@ public class PhoneList extends javax.swing.JFrame {
          try {
              
              stmt = conn.createStatement ();
-             sql = "select * from Phones";
+             sql = "select * from Phones where Brand='"+Brand+"'";
              rs = stmt.executeQuery (sql);
              while(rs.next()){
                  String model=rs.getString("Model");
                  int price = rs.getInt("Price");
                  
+                 String image_path=Storage_Path+model+".jpg";
+                 File file = new File(image_path);
+                 BufferedImage image = ImageIO.read(file);
+                 ImageIcon img = new ImageIcon(image);
+
                  panel=new Custom_Panel();
                  panel.setModel(model);
-                 panel.setPrice(price);
+                 panel.setPrice(price);                    
+                 panel.setImage(img);
                  panel.displayView();
                  DataFlowPanel.add(panel);
              }
