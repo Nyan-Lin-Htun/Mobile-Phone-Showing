@@ -40,6 +40,7 @@ public class PhoneList extends javax.swing.JFrame {
         Custom_Panel panel;
         final int COlUMN = 1; //row is dynamic
          final String Storage_Path="Resources/images/";
+         public String model1;
     public PhoneList() throws SQLException, IOException {
         initComponents();
         

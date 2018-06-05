@@ -1,4 +1,4 @@
-
+ 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -227,6 +227,7 @@ public class logochoosePage extends javax.swing.JFrame {
         // TODO add your handling code here:
           try {
               new PhoneList(Brand).setVisible(true);
+              dispose();
           } catch (SQLException ex) {
               Logger.getLogger(logochoosePage.class.getName()).log(Level.SEVERE, null, ex);
           } catch (IOException ex) {

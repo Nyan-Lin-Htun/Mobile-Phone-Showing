@@ -1,5 +1,6 @@
  
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,7 +41,7 @@ public class Custom_Panel extends javax.swing.JPanel {
     public String getModel(){
        return this.Model;
     }
-    public void displayView(){
+      public void displayView(){
          lblmodel.setText(getModel());
          lblprice.setText(getPrice()+"");
          lblimage.setIcon(getImage());
@@ -151,9 +152,18 @@ public class Custom_Panel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SpecificationsPage2 spg2=new SpecificationsPage2();
-        spg2.setVisible(true);
-        
+        //String model1=lblmodel.getText();
+        try {
+            try {
+                new SpecificationsPage2(getModel()).setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Custom_Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Custom_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -164,4 +174,5 @@ public class Custom_Panel extends javax.swing.JPanel {
     private javax.swing.JLabel lblmodel;
     private javax.swing.JLabel lblprice;
     // End of variables declaration//GEN-END:variables
+
 }
